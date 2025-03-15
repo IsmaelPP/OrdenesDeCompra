@@ -1,0 +1,119 @@
+﻿@model List<OrdenDeCompra>
+@{
+    ViewData["Title"] = "Listado";
+}
+@section Styles{
+	<link href="~/css/ordendecompra/index.css" rel="stylesheet" />
+}
+
+<div class="container-fluid page-content">
+    <div class="container-fluid container-links d-flex d-row">
+        <div class="col-auto">
+            <div class="row justify-content-end gap-2">
+                <div class="col-auto">
+                    <a class="btn btn-bg-light hover-elevate-up btn-primary" asp-area="" asp-controller="OrdenDeCompra" asp-action="Crear">Crear orden de compra</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid d-flex d-column mt-10 table-info">
+
+        <div class="table-responsive w-100 mx-10">
+            <!--begin::Table-->
+            @if (Model != null && Model.Any())
+            {
+                <table class="display" id="OrdenesDeCompras">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>NumeroDeOrden</th>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
+                            <th>MontoTotal</th>
+                            <th class="text-center">Estatus</th>
+                            <th class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var orden in Model)
+                        {
+                            <tr>
+                                <td>@orden.Id</td>
+                                <td>@orden.NumeroDeOrden</td>
+                                <td>@orden.Fecha</td>
+                                <td>@orden.Proveedor</td>
+                                <td>@orden.MontoTotal.ToString("C")</td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <!-- Botón para mostrar el status -->
+                                        <button class="btn @(orden.IsActive ? "btn-success" : "btn-danger") pe-none">
+                                            @(orden.IsActive ? "Activa" : "Inactiva")
+                                        </button>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <!-- Dropdown utilizando Bootstrap -->
+                                    <div class="dropdown">
+                                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton_@orden.Id" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-gear"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton_@orden.Id">
+                                            <li><a class="dropdown-item" asp-controller="OrdenDeCompra" asp-action="Editar" asp-route-id="@orden.Id">Editar</a></li>
+                                            <li>
+                                                <form method="post" asp-action="ActivarDesactivarOrden" asp-route-id="@orden.Id" class="d-inline">
+                                                    <button type="submit" class="dropdown-item">
+                                                        @(orden.IsActive ? "Desactivar" : "Activar")
+                                                    </button>
+                                                </form>
+                                                </li>
+                                        </ul>
+                                    </div>
+
+
+                                    
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <table class="display" id="OrdenesDeCompras">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>NumeroDeOrden</th>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
+                            <th>MontoTotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            }
+            
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+	<script src="~/js/ordendecompra/index.js"></script>
+}

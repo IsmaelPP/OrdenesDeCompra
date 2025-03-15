@@ -1,0 +1,36 @@
+﻿@model OrdenDeCompra
+
+@{
+    ViewData["Title"] = "Editar Orden de Compra";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="EditarOrdenDeCompra" method="post" id="editarOrdenForm">
+    <div class="form-group">
+        <label for="Id">Id de Orden</label>
+        <input type="number" id="Id" name="Id" value="@Model.Id" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label for="NumeroDeOrden">Número de Orden</label>
+        <input type="text" id="NumeroDeOrden" name="NumeroDeOrden" value="@Model.NumeroDeOrden" class="form-control" required />
+        @if (ViewData.ModelState.ContainsKey("NumeroDeOrden") && ViewData.ModelState["NumeroDeOrden"].Errors.Any())
+        {
+            <span class="text-danger">@ViewData.ModelState["NumeroDeOrden"].Errors.First().ErrorMessage</span>
+        }
+    </div>
+    <div class="form-group">
+        <label for="Fecha">Fecha</label>
+        <input type="date" id="Fecha" name="Fecha" value="@Model.Fecha.ToString("yyyy-MM-dd")" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Proveedor">Proveedor</label>
+        <input type="text" id="Proveedor" name="Proveedor" value="@Model.Proveedor" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="MontoTotal">Monto Total</label>
+        <input type="number" id="MontoTotal" name="MontoTotal" value="@Model.MontoTotal.ToString("0.00")" class="form-control" step="0.01" required />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>
