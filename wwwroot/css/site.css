@@ -24,7 +24,6 @@ body {
     font-size: 14px;
 }
 
-/* Contenedor para el loader, con fondo oscuro */
 .loader-container {
     display: none;
     position: fixed;
@@ -39,7 +38,6 @@ body {
     align-items: center;
 }
 
-/* Estilo para el loader (puedes personalizarlo a tu gusto) */
 .loader {
     display: flex;
     justify-content: center;
@@ -55,7 +53,6 @@ body {
     animation: spin 1s linear infinite;
 }
 
-/* Animación para el spinner */
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -178,7 +175,6 @@ body {
         width: 250%;
     }
 
-
 .swal2-icon.swal2-success {
     color: #28a745 !important;
     border-color: #28a745 !important;
@@ -199,17 +195,14 @@ body {
     border-color: #17a2b8 !important;
 }
 
-/* Tamaño y estilo para el título */
 .swal2-title {
-    font-size: 20px; /* Tamaño del título */
+    font-size: 20px;
     font-weight: 600;
 }
 
-/* Tamaño y estilo para el texto */
 .swal2-html-container {
-    font-size: 16px; /* Tamaño del texto */
+    font-size: 16px;
 }
-
 
 div.dt-container .dt-search input {
     border: none !important;
@@ -223,7 +216,6 @@ div.dt-container .dt-search input {
     line-height: 1.15 !important;
     box-shadow: 0px 10px 20px -18px !important;
 }
-
 
     div.dt-container .dt-search input:focus {
         border-bottom: 2px solid #069bf1 !important;
@@ -259,8 +251,6 @@ div.dt-container .dt-search {
     display: none;
 }
 
-
-/* From Uiverse.io by alexruix */
 .card {
     width: 400px;
     height: 254px;
@@ -305,13 +295,11 @@ div.dt-container .dt-search {
     color: rgb(134, 134, 134);
 }
 
-/*Text*/
 .text-title {
     font-size: 1.5em;
     font-weight: bold;
 }
 
-/*Hover*/
 .card:hover {
     border-color: #008bf8;
     box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
@@ -322,4 +310,23 @@ div.dt-container .dt-search {
         opacity: 1;
     }
 
+.input-group-text {
+    border-radius: .25rem 0 0.25rem;
+    border-right:0;
+}
+.form-control, .input-group-text {
+    border-width: 2px;
+}
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #069bf1;
+    }
 
+.form-control.input-validation-error {
+    border: 2px solid #ff0000 !important; /* Borde rojo */
+    box-shadow: none !important; /* Elimina cualquier sombra */
+}
+
+#Fecha {
+    background-color: #fff;
+}

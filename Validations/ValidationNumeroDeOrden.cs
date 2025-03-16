@@ -23,7 +23,7 @@ namespace OrdenesDeCompras.Validations
                         var listaDeOrdenes = JsonConvert.DeserializeObject<List<OrdenDeCompra>>(ordenesJson);
 
                         // Verificar si el número de orden ya existe
-                        if (listaDeOrdenes != null && listaDeOrdenes.Any(o => o.NumeroDeOrden == value.ToString()))
+                        if (listaDeOrdenes != null && listaDeOrdenes.Any(o => o.NumeroDeOrden.Trim() == value.ToString().Trim()))
                         {
                             return new ValidationResult("El número de orden ya existe. Por favor, ingrese un número de orden único.");
                         }

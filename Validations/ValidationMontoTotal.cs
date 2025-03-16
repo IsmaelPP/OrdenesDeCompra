@@ -11,7 +11,6 @@ namespace OrdenesDeCompras.Validations
             {
                 string valor = value.ToString();
 
-                // Expresión regular para validar solo números con hasta 2 decimales
                 if (!decimal.TryParse(valor, NumberStyles.Any, CultureInfo.InvariantCulture, out _))
                 {
                     return new ValidationResult("El valor debe ser un número válido.");

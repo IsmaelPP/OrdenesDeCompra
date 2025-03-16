@@ -1,15 +1,43 @@
 ﻿
-document.getElementById("MontoTotal").addEventListener("input", function (event) {
-    let value = event.target.value;
-
-    // Permitir solo números con hasta 2 decimales
-    if (!/^\d+(\.\d{0,2})?$/.test(value)) {
-        event.target.value = value.slice(0, -1); // Eliminar el último carácter inválido
-    }
-});
 $(document).ready(function () {
     $('#loader').hide();
-    var crearOrdenDeCompraUrl = $('#crearOrdenDeCompraUrl').data('url');
+
+    const today = new Date();
+    const fechaInput = document.getElementById('Fecha');
+    const fechaPicker = document.getElementById('FechaPicker');
+
+    function formatDate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    fechaInput.value = formatDate(today);
+
+    fechaPicker.setAttribute('value', today.toISOString().split('T')[0]);
+
+    // Capturar el cambio de fecha del calendario
+    fechaPicker.addEventListener('change', (event) => {
+        const selectedDate = new Date(event.target.value); 
+        fechaInput.value = formatDate(selectedDate);  
+        fechaPicker.style.display = 'none';  
+    });
+
+    
+    fechaInput.addEventListener('click', (event) => {
+        const rect = fechaInput.getBoundingClientRect();
+        fechaPicker.style.left = `${rect.left}px`;  
+        fechaPicker.style.top = `${rect.bottom + window.scrollY}px`; 
+        fechaPicker.style.display = 'block';
+    });
+
+    
+    document.addEventListener('click', (e) => {
+        if (!fechaInput.contains(e.target) && !fechaPicker.contains(e.target)) {
+            fechaPicker.style.display = 'none';  
+        }
+    });
 
     Inputmask("numeric", {
         groupSeparator: ",",
@@ -18,28 +46,27 @@ $(document).ready(function () {
         digitsOptional: false,
         prefix: "",
         rightAlign: false,
-        unmaskAsNumber: true
+        unmaskAsNumber: true,
+        allowMinus: false
     }).mask("#MontoTotal");
 
     $('#crearOrdenForm').on('submit', function (event) {
-        event.preventDefault();  // Evita que el formulario se envíe normalmente
+        event.preventDefault();  
 
-        // Validación de todos los campos requeridos
+       
         if (!$('#crearOrdenForm').valid()) {
-            return; // Si no es válido, no se hace la solicitud AJAX
+            return; 
         }
 
-        // Mostrar el loader
+       
         $('#loader').show();
 
         // Simular un retraso o un proceso de guardado
         setTimeout(function () {
-            // Aquí iría tu lógica para guardar los datos (AJAX, etc.)
-            // Por ejemplo, una llamada AJAX
             $.ajax({
                 url: '/OrdenDeCompra/Crear',
                 method: 'POST',
-                data: $('#crearOrdenForm').serialize(),  // Serializa los datos del formulario
+                data: $('#crearOrdenForm').serialize(),
                 success: function (response) {
                     $('#loader').hide();
                     Swal.fire({
@@ -51,12 +78,10 @@ $(document).ready(function () {
                             confirmButton: 'custom-confirm-alert',
                         }
                     }).then(function () {
-                        // Redirigir al Index después de que el usuario cierre la alerta
                         window.location.href = '/OrdenDeCompra/Index';
                     });
                 },
                 error: function (xhr, status, error) {
-                    // Aquí se oculta el loader si hay un error
                     $('#loader').hide();
                     if (xhr.status === 400) {
                         Swal.fire({
@@ -70,7 +95,6 @@ $(document).ready(function () {
                         }).then(function () {
                             let errors = JSON.parse(xhr.responseText);
 
-                            // Mostrar los errores en los span correspondientes
                             for (let key in errors) {
                                 let mensajeError = errors[key][0];
                                 let span = $(`span[data-valmsg-for="${key}"]`);
@@ -90,7 +114,7 @@ $(document).ready(function () {
                     }
                 }
             });
-        }, 2000);  // Simula un retraso de 2 segundos
+        }, 2000);
     });
 
 

@@ -2,10 +2,10 @@
 $(document).ready(function () {
     var table = $('#OrdenesDeCompras').DataTable({
         language: {
-            search: "", // Oculta la barra de búsqueda predeterminada
-            decimal: ",",
-            thousands: ".",
-            searchPlaceholder: "Ingrese el número de orden...", // Texto dentro del input
+            search: "",
+            decimal: ".",
+            thousands: ",",
+            searchPlaceholder: "Ingrese el número de orden...",
             emptyTable: "No hay órdenes de compra registradas.",
             info: "Mostrando _START_ a _END_ de _TOTAL_ órdenes",
             infoEmpty: "Mostrando 0 a 0 de 0 órdenes",
@@ -35,7 +35,7 @@ $(document).ready(function () {
                     if (type === 'display') {
                         var numericValue = parseFloat(data.replace(/[^\d.-]/g, ''));
                         if (!isNaN(numericValue)) {
-                            return `$${numericValue.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                            return `$${numericValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
                         }
                         return data; // Si no es un número válido, se devuelve tal cual
                     }
@@ -44,15 +44,18 @@ $(document).ready(function () {
             }
         ]
     });
+    $('#loader').hide();
 
-    // Conectar el campo de búsqueda personalizado
     $('#customSearch').on('keyup', function () {
-        table.search(this.value).draw();
+        var searchValue = this.value.trim();
+        table.search(searchValue).draw();
     });
 
 
-    $('.activarDesactivarBtn').on('click', function (e) {
+    
+    $(document).on('click', '.activarDesactivarBtn', function (e) {
         e.preventDefault();
+        console.log("Entró al botón");
 
         let id = $(this).data('id');
         let status = $(this).data('status');
@@ -67,13 +70,98 @@ $(document).ready(function () {
             confirmButtonText: `Sí, ${status}`,
             cancelButtonText: 'Cancelar',
             customClass: {
-                confirmButton: status === 'activar' ? 'custom-confirm-alert' : 'custom-decline-alert',  // Cambiar el estilo del botón de confirmación
-                cancelButton: 'custom-cancel-alert'    // Cambiar el estilo del botón de cancelación
+                confirmButton: status === 'activar' ? 'custom-confirm-alert' : 'custom-decline-alert',
+                cancelButton: 'custom-cancel-alert'
             }
         }).then((result) => {
             if (result.isConfirmed) {
-                form.submit(); // Enviar el formulario después de la confirmación
+                form.submit();
             }
         });
     });
+
+
+    $('#generarOrdenRandomBtn').on('click', function () {
+        Swal.fire({
+            title: 'Generar orden de compra',
+            text: '¿Cuántas órdenes de compra aleatorias deseas generar? (Entre 1 y 30)',
+            icon: 'question',
+            input: 'select',
+            inputOptions: {
+                '10': '10 órdenes',
+                '20': '20 órdenes',
+                '30': '30 órdenes'
+            },
+            inputPlaceholder: 'Selecciona la cantidad de órdenes',
+            showCancelButton: true,
+            confirmButtonText: 'Generar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                input: 'custom-select',
+                confirmButton: 'custom-confirm-alert',
+                cancelButton: 'custom-cancel-alert'
+            },
+            preConfirm: (cantidad) => {
+                if (cantidad < 1 || cantidad > 30) {
+                    Swal.showValidationMessage('Por favor, selecciona una cantidad.');
+                    return false; 
+                }
+                return cantidad;
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const cantidad = result.value;
+                $('#loader').show();
+                setTimeout(function () {
+                    $.ajax({
+                        url: '/OrdenDeCompra/GenerarOrdenRandom',
+                        type: 'POST',
+                        data: { cantidad: cantidad },
+                        success: function (response) {
+                            $('#loader').hide();
+                            if (response.success) {
+                                Swal.fire({
+                                    title: 'Éxito',
+                                    text: 'La órdenes de compra se ha generado exitosamente.',
+                                    icon: 'success',
+                                    confirmButtonText: 'Aceptar',
+                                    customClass: {
+                                        confirmButton: 'custom-confirm-alert'
+                                    }
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: 'Ocurrió un error al generar la orden.',
+                                    icon: 'error',
+                                    confirmButtonText: 'Aceptar',
+                                    customClass: {
+                                        confirmButton: 'custom-confirm-alert'
+                                    }
+                                });
+                            }
+                        },
+                        error: function () {
+                            $('#loader').hide();
+                            Swal.fire({
+                                title: 'Error',
+                                text: 'Ocurrió un error al generar la orden.',
+                                icon: 'error',
+                                confirmButtonText: 'Aceptar',
+                                customClass: {
+                                    confirmButton: 'custom-confirm-alert'
+                                }
+                            });
+                        }
+                    });
+                }, 2000);
+
+
+                
+            }
+        });
+    });
+
 });

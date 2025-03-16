@@ -38,24 +38,25 @@ namespace OrdenesDeCompras.Controllers
             }
             else
             {
-                // Obtener la lista de órdenes almacenadas en la sesión (o base de datos)
+                // Obtener la lista de órdenes almacenadas en la sesión
                 var listaDeOrdenes = ObtenerOrdenesDesdeSesion();
 
-                // Si no hay duplicados, agregar la nueva orden a la lista
-                if (listaDeOrdenes == null)
-                {
-                    listaDeOrdenes = new List<OrdenDeCompra>();
-                }
+                
+                //if (listaDeOrdenes == null)
+                //{
+                //    listaDeOrdenes = new List<OrdenDeCompra>();
+                //}
                 
 
-                orden.Id = listaDeOrdenes.Count > 0 ? listaDeOrdenes.Max(o => o.Id) + 1 : 1;  // Generar un nuevo Id dinámicamente
+                orden.Id = listaDeOrdenes.Count > 0 ? listaDeOrdenes.Max(o => o.Id) + 1 : 1;
+                orden.NumeroDeOrden = orden.NumeroDeOrden.Trim();
+                orden.Proveedor = orden.Proveedor.Trim();
                 listaDeOrdenes.Add(orden);
 
                 // Guardar la lista actualizada en la sesión
 
                 GuardarOrdenesEnSesion(listaDeOrdenes);
 
-                // Redirigir al índice o donde desees
                 return RedirectToAction("Index");
             }
 
@@ -83,7 +84,7 @@ namespace OrdenesDeCompras.Controllers
             if (!ModelState.IsValid)
             {
                 // Verificar duplicidad (excepto para el mismo ID)
-                if (listaDeOrdenes.Any(o => o.NumeroDeOrden == orden.NumeroDeOrden && o.Id != orden.Id))
+                if (listaDeOrdenes.Any(o => o.NumeroDeOrden.Trim() == orden.NumeroDeOrden.Trim() && o.Id != orden.Id))
                 {
                     ModelState.AddModelError("NumeroDeOrden", "El número de orden ya existe. Por favor, ingrese un número único.");
                     return BadRequest(ModelState);
@@ -95,9 +96,9 @@ namespace OrdenesDeCompras.Controllers
 
             if (ordenExistente != null)
             {
-                ordenExistente.NumeroDeOrden = orden.NumeroDeOrden;
+                ordenExistente.NumeroDeOrden = orden.NumeroDeOrden.Trim();
                 ordenExistente.Fecha = orden.Fecha;
-                ordenExistente.Proveedor = orden.Proveedor;
+                ordenExistente.Proveedor = orden.Proveedor.Trim();
                 ordenExistente.MontoTotal = orden.MontoTotal;
             }
 
@@ -117,16 +118,15 @@ namespace OrdenesDeCompras.Controllers
 
             if (orden == null)
             {
-                return NotFound();  // Si no se encuentra la orden
+                return NotFound();
             }
 
-            // Cambiar el estado de la orden (activar/desactivar)
-            orden.IsActive = !orden.IsActive;  // Invertir el estado actual
+            orden.IsActive = !orden.IsActive; 
 
             // Guardar la lista actualizada en la sesión
             GuardarOrdenesEnSesion(ordenes);
 
-            return RedirectToAction("Index");  // Redirigir a la vista de listado (Index)
+            return RedirectToAction("Index");
         }
 
 
@@ -141,6 +141,55 @@ namespace OrdenesDeCompras.Controllers
         private List<OrdenDeCompra> ObtenerOrdenesDesdeSesion()
         {
             return HttpContext.Session.GetObject<List<OrdenDeCompra>>("OrdenesDeCompra") ?? new List<OrdenDeCompra>();
+        }
+
+        [HttpPost]
+        public IActionResult GenerarOrdenRandom(int cantidad)
+        {
+            var listaDeOrdenes = ObtenerOrdenesDesdeSesion();
+
+			int nuevoId = listaDeOrdenes.Count > 0 ? listaDeOrdenes.Max(o => o.Id) + 1 : 1;
+
+			List<OrdenDeCompra> ordenesGeneradas = new List<OrdenDeCompra>();
+
+			for (int i = 0; i < cantidad; i++)
+			{
+				var orden = new OrdenDeCompra
+				{
+					Id = nuevoId++,
+					NumeroDeOrden = $"ORD-{new Random().Next(1000, 9999)}",
+					Fecha = GenerarFechaAleatoria(),
+					Proveedor = GenerarProveedorAleatorio(),
+					MontoTotal = Math.Round((decimal)(new Random().NextDouble() * 10000), 2),
+					IsActive = new Random().Next(0, 2) == 1
+				};
+
+				ordenesGeneradas.Add(orden);
+			}
+
+			listaDeOrdenes.AddRange(ordenesGeneradas);
+
+            GuardarOrdenesEnSesion(listaDeOrdenes);
+
+			return Json(new { success = true, message = "Orden generada y guardada correctamente.", ordenesGeneradas });
+		}
+
+
+        // Generar una fecha aleatoria en los últimos 2 años
+        private DateTime GenerarFechaAleatoria()
+        {
+            var fechaInicio = DateTime.Now.AddYears(-1);
+            var fechaFin = DateTime.Now;
+
+            int range = (fechaFin - fechaInicio).Days;
+            return fechaInicio.AddDays(new Random().Next(range));
+        }
+
+        // Generar un nombre de proveedor aleatorio
+        private string GenerarProveedorAleatorio()
+        {
+            var proveedores = new[] { "Proveedor A", "Proveedor B", "Proveedor C", "Proveedor D", "Proveedor E" };
+            return proveedores[new Random().Next(proveedores.Length)];
         }
 
 

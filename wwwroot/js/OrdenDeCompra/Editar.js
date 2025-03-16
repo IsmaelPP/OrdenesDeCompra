@@ -1,15 +1,44 @@
 ﻿
-document.getElementById("MontoTotal").addEventListener("input", function (event) {
-    let value = event.target.value;
-
-    // Permitir solo números con hasta 2 decimales
-    if (!/^\d+(\.\d{0,2})?$/.test(value)) {
-        event.target.value = value.slice(0, -1); // Eliminar el último carácter inválido
-    }
-});
 $(document).ready(function () {
     $('#loader').hide();
-    var crearOrdenDeCompraUrl = $('#crearOrdenDeCompraUrl').data('url');
+
+    const fechaInput = document.getElementById('Fecha');
+    const fechaPicker = document.getElementById('FechaPicker');
+
+    
+    const [day, month, year] = fechaInput.value.split('/');
+    const fechaOrden = new Date(year, month - 1, day);
+
+
+    function formatDate(date) {
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    }
+
+    fechaPicker.setAttribute('value', fechaOrden.toISOString().split('T')[0]);
+
+    // Capturar el cambio de fecha del calendario
+    fechaPicker.addEventListener('change', (event) => {
+        const selectedDate = new Date(event.target.value); 
+        fechaInput.value = formatDate(selectedDate);  
+        fechaPicker.style.display = 'none';
+    });
+
+    fechaInput.addEventListener('click', (event) => {
+        const rect = fechaInput.getBoundingClientRect();
+        fechaPicker.style.left = `${rect.left}px`;  
+        fechaPicker.style.top = `${rect.bottom + window.scrollY}px`;  
+        fechaPicker.style.display = 'block';
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!fechaInput.contains(e.target) && !fechaPicker.contains(e.target)) {
+            fechaPicker.style.display = 'none';
+        }
+    });
+
 
     Inputmask("numeric", {
         groupSeparator: ",",
@@ -22,24 +51,20 @@ $(document).ready(function () {
     }).mask("#MontoTotal");
 
     $('#editarOrdenForm').on('submit', function (event) {
-        event.preventDefault();  // Evita que el formulario se envíe normalmente
+        event.preventDefault();
 
-        // Validación de todos los campos requeridos
         if (!$('#editarOrdenForm').valid()) {
-            return; // Si no es válido, no se hace la solicitud AJAX
+            return;
         }
 
-        // Mostrar el loader
         $('#loader').show();
 
         // Simular un retraso o un proceso de guardado
         setTimeout(function () {
-            // Aquí iría tu lógica para guardar los datos (AJAX, etc.)
-            // Por ejemplo, una llamada AJAX
             $.ajax({
                 url: '/OrdenDeCompra/Editar',
                 method: 'POST',
-                data: $('#editarOrdenForm').serialize(),  // Serializa los datos del formulario
+                data: $('#editarOrdenForm').serialize(),
                 success: function (response) {
                     $('#loader').hide();
                     Swal.fire({
@@ -51,12 +76,10 @@ $(document).ready(function () {
                             confirmButton: 'custom-confirm-alert',
                         }
                     }).then(function () {
-                        // Redirigir al Index después de que el usuario cierre la alerta
                         window.location.href = '/OrdenDeCompra/Index';
                     });
                 },
                 error: function (xhr, status, error) {
-                    // Aquí se oculta el loader si hay un error
                     $('#loader').hide();
                     if (xhr.status === 400) {
                         Swal.fire({
@@ -70,7 +93,6 @@ $(document).ready(function () {
                         }).then(function () {
                             let errors = JSON.parse(xhr.responseText);
 
-                            // Mostrar los errores en los span correspondientes
                             for (let key in errors) {
                                 let mensajeError = errors[key][0];
                                 let span = $(`span[data-valmsg-for="${key}"]`);

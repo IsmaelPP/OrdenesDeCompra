@@ -9,8 +9,6 @@
     text-decoration: none;
 }
 
-
-
 .btn-inactivo {
     background-color: #ec474f;
     color: #ffffff;
@@ -65,7 +63,6 @@
     border: 2px solid #32b550;
 }
 
-/* From Uiverse.io by vikiWayne */
 .custom-button-add {
     padding: .5em 1em;
     border: none;
@@ -105,8 +102,46 @@
         width: 250%;
     }
 
+.custom-button-generate {
+    background: #ffffff !important;
+    padding: .5em 1em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fd7e14;
+    transition: all 500ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #fd7e14;
+    text-decoration: none;
+}
 
-/* Contenedor de la barra de búsqueda */
+    .custom-button-generate:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        outline: 2px solid #fe9b39;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-button-generate::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #fd7e14;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-button-generate:hover::before {
+        width: 250%;
+    }
+
 .search-container {
     position: relative;
     width: 100%;
@@ -125,7 +160,7 @@
     .search-container input {
         width: 100%;
         padding: 8px 12px 8px 40px;
-        border: 1px solid #069bf1;
+        border: 2px solid #069bf1;
         border-radius: 8px;
         outline: none !important;
         font-size: 14px;
@@ -135,7 +170,6 @@
 
         .search-container input:focus {
             background-color: #ffffff;
-            border-bottom: 3px solid #069bf1 !important;
         }
 
     .search-container label {
@@ -222,8 +256,92 @@
         width: 250%;
     }
 
+.table-responsive div.dt-container .dt-paging .dt-paging-button {
+    background: #ffffff !important;
+    padding: .5em 1em !important;
+    border: none !important;
+    border-radius: 5px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    color: #1eadff !important;
+    transition: all 500ms !important;
+    font-size: 15px !important;
+    position: relative !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
+}
+    .table-responsive div.dt-container .dt-paging .dt-paging-button:hover {
+        color: #ffffff !important;
+        transform: scale(0.9) !important;
+        outline: 2px solid #48cbff !important;
+        box-shadow: 4px 5px 17px -4px #268391 !important;
+    }
+
+    .table-responsive div.dt-container .dt-paging .dt-paging-button::before {
+        content: "" !important;
+        position: absolute !important;
+        left: -50px !important;
+        top: 0 !important;
+        width: 0 !important;
+        height: 100% !important;
+        background-color: #1eadff !important;
+        transform: skewX(45deg) !important;
+        z-index: -1 !important;
+        transition: width 500ms !important;
+    }
+    .table-responsive div.dt-container .dt-paging .dt-paging-button:hover::before {
+        width: 300% !important;
+    }
 
 
+    .table-responsive div.dt-container .dt-paging .dt-paging-button.current {
+        background: #1eadff !important;
+        color: #fff !important;
+        padding: .5em 1em !important;
+        border: none !important;
+        border-radius: 5px !important;
+        font-weight: bold !important;
+        cursor: pointer !important;
+        transition: all 500ms !important;
+        font-size: 15px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        text-decoration: none !important;
+    }
+
+        .table-responsive div.dt-container .dt-paging .dt-paging-button.current:hover {
+            color: #1eadff !important;
+            transform: scale(0.9) !important;
+            outline: 2px solid #1eadff !important;
+            box-shadow: 4px 5px 17px -4px #268391 !important;
+        }
+
+        .table-responsive div.dt-container .dt-paging .dt-paging-button.current::before {
+            content: "" !important;
+            position: absolute !important;
+            left: -50px !important;
+            top: 0 !important;
+            width: 0 !important;
+            height: 100% !important;
+            background-color: #ffffff !important;
+            transform: skewX(45deg) !important;
+            z-index: -1 !important;
+            transition: width 500ms !important;
+        }
+
+        .table-responsive div.dt-container .dt-paging .dt-paging-button.current:hover::before {
+            width: 300% !important;
+        }
+
+
+
+.custom-select {
+    border: 2px solid #6c757d;
+    border-radius: 5px;
+    outline: none;
+}
+
+    
 
 
 

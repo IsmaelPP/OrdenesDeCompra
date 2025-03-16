@@ -52,7 +52,7 @@
     font-size: 15px;
     position: relative;
     overflow: hidden;
-    outline: 2px solid #1eadff;
+    outline: 2px solid #1eadff !important;
     text-decoration: none;
 }
 
@@ -79,5 +79,41 @@
     .custom-button-save:hover::before {
         width: 250%;
     }
+
+calendar-date#FechaPicker {
+    position: absolute;
+    z-index: 9999;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    min-width: 200px;
+    max-width: 300px;
+    display: none;
+    opacity: 1;
+    color: #333;
+}
+calendar-date svg {
+    height: 16px;
+    width: 16px;
+    fill: none;
+    stroke: #7048e8;
+    stroke-width: 1.5;
+}
+
+calendar-date path {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+
+
+calendar-month {
+    --color-accent: #069bf1;
+    --color-text-on-accent: #ffffff;
+}
+
 
 

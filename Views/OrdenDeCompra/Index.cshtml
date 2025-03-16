@@ -11,14 +11,12 @@
 	<div class="d-flex justify-content-between align-items-center mb-4">
 		<h1>Listado de órdenes de compras</h1>
 
-		<!-- From Uiverse.io by vikiWayne -->
-		<a class="custom-button-add d-flex align-items-center" asp-area="" asp-controller="OrdenDeCompra" asp-action="Crear"><i class="bi bi-plus-circle me-1 fs-5"></i>Nueva orden de compra</a>
-
-
-
-		@*<a class="btn btn-success d-flex align-items-center" asp-area="" asp-controller="OrdenDeCompra" asp-action="Crear">
-		<i class="bi bi-plus-circle me-1 fs-5"></i>Crear orden de compra
-		</a>*@
+		<div class="d-flex gap-2">
+			<button id="generarOrdenRandomBtn" class="custom-button-generate d-flex align-items-center me-3">
+				<i class="bi bi-lightning me-1 fs-5"></i>Generar Orden
+			</button>
+			<a class="custom-button-add d-flex align-items-center" asp-area="" asp-controller="OrdenDeCompra" asp-action="Crear"><i class="bi bi-plus-circle me-1 fs-5"></i>Nueva orden de compra</a>
+		</div>
 	</div>
 
 	<div class="container-fluid d-flex d-column mt-10 table-info">
@@ -28,8 +26,6 @@
 				<i class="bi bi-search"></i>
 				<input type="text" id="customSearch" class="" placeholder="Buscar" />
 			</div>
-
-			<!--begin::Table-->
 			@if (Model != null && Model.Any())
 			{
 				<table class="display" id="OrdenesDeCompras">
@@ -53,17 +49,15 @@
 								<td>@orden.NumeroDeOrden</td>
 								<td>@orden.Fecha.ToString("dd/MM/yyyy")</td>
 								<td>@orden.Proveedor</td>
-								<td>@orden.MontoTotal.ToString("C")</td>
+								<td>@String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", orden.MontoTotal)</td>
 								<td class="text-center">
 									<div class="d-flex justify-content-center align-items-center">
-										<!-- Botón para mostrar el status -->
 										<button class="btn @(orden.IsActive ? "btn-activo" : "btn-inactivo") pe-none">
 											@(orden.IsActive ? "Activa" : "Inactiva")
 										</button>
 									</div>
 								</td>
 								<td class="text-center">
-									<!-- Dropdown utilizando Bootstrap -->
 									<div class="dropdown">
 										<button class="btn custom-button-option" type="button" id="dropdownMenuButton_@orden.Id" data-bs-toggle="dropdown" aria-expanded="false">
 											<i class="bi bi-gear fs-5"></i>
@@ -120,7 +114,11 @@
 
 	</div>
 </div>
-
+<div id="loader" class="loader-container">
+	<div class="loader">
+		<div class="spinner"></div>
+	</div>
+</div>
 @section Scripts{
 	<script src="~/js/OrdenDeCompra/Index.js"></script>
 }
