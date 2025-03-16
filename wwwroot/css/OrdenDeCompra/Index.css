@@ -1,2 +1,229 @@
 ﻿body {
 }
+
+.btn-activo {
+    background-color: #32b550;
+    color: #ffffff;
+    border-color: #32b550;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+
+
+.btn-inactivo {
+    background-color: #ec474f;
+    color: #ffffff;
+    border-color: #ec474f;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.custom-button-delete {
+    padding: .5em 1em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ec474f;
+    transition: all 500ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #ec474f;
+    text-decoration: none;
+}
+
+    .custom-button-delete:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        outline: 2px solid #f57779;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-button-delete::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #ec474f;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-button-delete:hover::before {
+        width: 250%;
+    }
+
+.custom-confirm {
+    background-color: #ffffff;
+    border-radius: 5px;
+    color: #32b550;
+    border: 2px solid #32b550;
+}
+
+/* From Uiverse.io by vikiWayne */
+.custom-button-add {
+    padding: .5em 1em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #32b550;
+    transition: all 500ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #32b550;
+    text-decoration: none;
+}
+
+    .custom-button-add:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        outline: 2px solid #58d073;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-button-add::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #32b550;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-button-add:hover::before {
+        width: 250%;
+    }
+
+
+/* Contenedor de la barra de búsqueda */
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+}
+
+    .search-container i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #007bff;
+        font-size: 18px;
+    }
+
+    .search-container input {
+        width: 100%;
+        padding: 8px 12px 8px 40px;
+        border: 1px solid #069bf1;
+        border-radius: 8px;
+        outline: none !important;
+        font-size: 14px;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+        .search-container input:focus {
+            background-color: #ffffff;
+            border-bottom: 3px solid #069bf1 !important;
+        }
+
+    .search-container label {
+        font-weight: bold;
+        color: #333;
+    }
+
+.custom-button-option {
+    padding: .5em 1em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #1eadff;
+    transition: all 500ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #1eadff;
+    text-decoration: none;
+}
+
+    .custom-button-option:hover {
+        color: #ffffff;
+        outline: 2px solid #48cbff;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-button-option::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #1eadff;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-button-option:hover::before {
+        width: 250%;
+    }
+
+.dropdown-menu {
+    border: 1px solid #1eadff;
+}
+
+.dropdown-item {
+    padding: .5em 1em;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    color: #1eadff;
+    transition: all 500ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+    .dropdown-item:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        outline: 2px solid #78cdff;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .dropdown-item::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #1eadff;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .dropdown-item:hover::before {
+        width: 250%;
+    }
+
+
+
+
+
+

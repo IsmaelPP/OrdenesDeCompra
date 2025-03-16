@@ -1,0 +1,83 @@
+﻿body {
+}
+
+.custom-button-delete {
+    padding: .5em 1em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ec474f;
+    transition: all 500ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #ec474f;
+    text-decoration: none;
+}
+
+    .custom-button-delete:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        outline: 2px solid #f57779;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-button-delete::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #ec474f;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-button-delete:hover::before {
+        width: 250%;
+    }
+
+.custom-button-save {
+    background-color: #ffffff;
+    padding: .5em 1em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #1eadff;
+    transition: all 500ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 2px solid #1eadff;
+    text-decoration: none;
+}
+
+    .custom-button-save:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        outline: 2px solid #48cbff;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-button-save::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #1eadff;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-button-save:hover::before {
+        width: 250%;
+    }
+
+

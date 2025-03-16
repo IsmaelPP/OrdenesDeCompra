@@ -1,36 +1,84 @@
 ﻿@model OrdenDeCompra
 
 @{
-    ViewData["Title"] = "Editar Orden de Compra";
+    ViewData["Title"] = "Editar";
+}
+@section Styles{
+    <link href="~/css/OrdenDeCompra/Editar.css" rel="stylesheet" />
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<form asp-action="EditarOrdenDeCompra" method="post" id="editarOrdenForm">
-    <div class="form-group">
-        <label for="Id">Id de Orden</label>
-        <input type="number" id="Id" name="Id" value="@Model.Id" class="form-control" readonly />
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Editar orden de compra</h1>
+    <a class="custom-button-delete d-flex align-items-center" asp-area="" asp-controller="OrdenDeCompra" asp-action="Index">
+        <i class="bi bi-arrow-left me-1 fs-5"></i> Regresar
+    </a>
+</div>
+<form asp-action="Editar" method="post" id="editarOrdenForm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-2">
+            <label class="sr-only" asp-for="Id">Id de Orden</label>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="bi bi-key"></i></div>
+                </div>
+                <input asp-for="Id" type="number" id="Id" name="Id" value="@Model.Id" class="form-control" readonly />
+            </div>
+            <span asp-validation-for="Id" class="text-danger"></span>
+        </div>
+        <div class="col-md-7">
+            <label class="sr-only" asp-for="NumeroDeOrden">Número de Orden</label>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="bi bi-file-earmark"></i></div>
+                </div>
+                <input asp-for="NumeroDeOrden" type="text" id="NumeroDeOrden" name="NumeroDeOrden" value="@Model.NumeroDeOrden" class="form-control" />
+            </div>
+            <span asp-validation-for="NumeroDeOrden" class="text-danger"></span>
+        </div>
+        <div class="col-md-3">
+            <label class="sr-only" asp-for="Fecha">Fecha</label>
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="bi bi-calendar"></i></div>
+                </div>
+                <input asp-for="Fecha" type="date" id="Fecha" name="Fecha" value="@Model.Fecha.ToString("yyyy-MM-dd")" class="form-control" />
+            </div>
+            <span asp-validation-for="Fecha" class="text-danger"></span>
+        </div>
     </div>
     <div class="form-group">
-        <label for="NumeroDeOrden">Número de Orden</label>
-        <input type="text" id="NumeroDeOrden" name="NumeroDeOrden" value="@Model.NumeroDeOrden" class="form-control" required />
-        @if (ViewData.ModelState.ContainsKey("NumeroDeOrden") && ViewData.ModelState["NumeroDeOrden"].Errors.Any())
-        {
-            <span class="text-danger">@ViewData.ModelState["NumeroDeOrden"].Errors.First().ErrorMessage</span>
-        }
+        <label class="sr-only" asp-for="Proveedor">Proveedor</label>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="bi bi-person-bounding-box"></i></div>
+            </div>
+            <input asp-for="Proveedor" type="text" id="Proveedor" name="Proveedor" value="@Model.Proveedor" class="form-control" required />
+        </div>
+        <span asp-validation-for="Proveedor" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label for="Fecha">Fecha</label>
-        <input type="date" id="Fecha" name="Fecha" value="@Model.Fecha.ToString("yyyy-MM-dd")" class="form-control" required />
+        <label class="sr-only" asp-for="MontoTotal">Monto Total</label>
+        <div class="input-group mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="bi bi-currency-dollar"></i></div>
+            </div>
+            <input asp-for="MontoTotal" type="text" id="MontoTotal" name="MontoTotal" value="@Model.MontoTotal.ToString("0.00")" class="form-control" />
+        </div>
+        <span asp-validation-for="MontoTotal" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <label for="Proveedor">Proveedor</label>
-        <input type="text" id="Proveedor" name="Proveedor" value="@Model.Proveedor" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="MontoTotal">Monto Total</label>
-        <input type="number" id="MontoTotal" name="MontoTotal" value="@Model.MontoTotal.ToString("0.00")" class="form-control" step="0.01" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <button type="submit" class="custom-button-save d-flex align-items-center mt-3">
+        <i class="bi bi-floppy me-1 fs-5"></i>Guardar
+    </button>
 </form>
+<div id="loader" class="loader-container">
+    <div class="loader">
+        <div class="spinner"></div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/OrdenDeCompra/Editar.js"></script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

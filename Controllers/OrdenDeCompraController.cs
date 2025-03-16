@@ -30,39 +30,39 @@ namespace OrdenesDeCompras.Controllers
 
 
         [HttpPost]
-        public IActionResult CrearOrdenDeCompra(OrdenDeCompra orden)
+        public IActionResult Crear(OrdenDeCompra orden)
         {
-
-            // Obtener la lista de órdenes almacenadas en la sesión (o base de datos)
-            var listaDeOrdenes = ObtenerOrdenesDesdeSesion();
-
-            // Validación: verificar si ya existe el número de orden
-            if (listaDeOrdenes != null && listaDeOrdenes.Any(o => o.NumeroDeOrden == orden.NumeroDeOrden))
+            if (!ModelState.IsValid)
             {
-                // Si el número de orden ya existe, agregar un mensaje de error
-                ModelState.AddModelError("NumeroDeOrden", "El número de orden ya existe. Por favor, ingrese un número de orden único.");
+                return BadRequest(ModelState);
+            }
+            else
+            {
+                // Obtener la lista de órdenes almacenadas en la sesión (o base de datos)
+                var listaDeOrdenes = ObtenerOrdenesDesdeSesion();
 
-                // Retornar la vista con el modelo y los errores de validación
-                return View("Crear",orden);
+                // Si no hay duplicados, agregar la nueva orden a la lista
+                if (listaDeOrdenes == null)
+                {
+                    listaDeOrdenes = new List<OrdenDeCompra>();
+                }
+                
+
+                orden.Id = listaDeOrdenes.Count > 0 ? listaDeOrdenes.Max(o => o.Id) + 1 : 1;  // Generar un nuevo Id dinámicamente
+                listaDeOrdenes.Add(orden);
+
+                // Guardar la lista actualizada en la sesión
+
+                GuardarOrdenesEnSesion(listaDeOrdenes);
+
+                // Redirigir al índice o donde desees
+                return RedirectToAction("Index");
             }
 
-            // Si no hay duplicados, agregar la nueva orden a la lista
-            if (listaDeOrdenes == null)
-            {
-                listaDeOrdenes = new List<OrdenDeCompra>();
-            }
-            orden.Id = listaDeOrdenes.Count > 0 ? listaDeOrdenes.Max(o => o.Id) + 1 : 1;  // Generar un nuevo Id dinámicamente
-            listaDeOrdenes.Add(orden);
 
-            // Guardar la lista actualizada en la sesión
-
-            GuardarOrdenesEnSesion(listaDeOrdenes);
-
-            // Redirigir al índice o donde desees
-            return RedirectToAction("Index");
+            
         }
 
-        [HttpGet]
         public IActionResult Editar(int id)
         {
             var ordenes = ObtenerOrdenesDesdeSesion();
@@ -77,34 +77,34 @@ namespace OrdenesDeCompras.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditarOrdenDeCompra(OrdenDeCompra orden)
+        public IActionResult Editar(OrdenDeCompra orden)
         {
-            if (ModelState.IsValid)
+            var listaDeOrdenes = ObtenerOrdenesDesdeSesion();
+            if (!ModelState.IsValid)
             {
-                // Obtener la lista de órdenes desde la sesión
-                var ordenes = ObtenerOrdenesDesdeSesion();
-
-                // Encontrar la orden que se va a actualizar
-                var ordenExistente = ordenes.FirstOrDefault(o => o.Id == orden.Id);
-                if (ordenExistente != null)
+                // Verificar duplicidad (excepto para el mismo ID)
+                if (listaDeOrdenes.Any(o => o.NumeroDeOrden == orden.NumeroDeOrden && o.Id != orden.Id))
                 {
-                    // Actualizar los datos de la orden
-                    ordenExistente.NumeroDeOrden = orden.NumeroDeOrden;
-                    ordenExistente.Fecha = orden.Fecha;
-                    ordenExistente.Proveedor = orden.Proveedor;
-                    ordenExistente.MontoTotal = orden.MontoTotal;
-
-                    // Guardar la lista actualizada en la sesión
-                    GuardarOrdenesEnSesion(ordenes);
-
-                    return RedirectToAction("Index");
+                    ModelState.AddModelError("NumeroDeOrden", "El número de orden ya existe. Por favor, ingrese un número único.");
+                    return BadRequest(ModelState);
                 }
-
-                return NotFound();
             }
 
-            return View("Editar",orden);
+
+            var ordenExistente = listaDeOrdenes.FirstOrDefault(o => o.Id == orden.Id);
+
+            if (ordenExistente != null)
+            {
+                ordenExistente.NumeroDeOrden = orden.NumeroDeOrden;
+                ordenExistente.Fecha = orden.Fecha;
+                ordenExistente.Proveedor = orden.Proveedor;
+                ordenExistente.MontoTotal = orden.MontoTotal;
+            }
+
+            GuardarOrdenesEnSesion(listaDeOrdenes);
+            return Json(new { success = true, message = "La orden se ha actualizado exitosamente." });
         }
+
 
         [HttpPost]
         public IActionResult ActivarDesactivarOrden(int id)

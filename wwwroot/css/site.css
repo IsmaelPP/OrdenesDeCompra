@@ -1,5 +1,6 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    
 }
 
 @media (min-width: 768px) {
@@ -18,5 +19,307 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
 }
+
+/* Contenedor para el loader, con fondo oscuro */
+.loader-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo para el loader (puedes personalizarlo a tu gusto) */
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    border: 4px solid #ffffff;
+    border-top: 4px solid #1eadff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+/* Animación para el spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+.custom-confirm-alert {
+    background-color: #ffffff;
+    padding: .5em 1em;
+    border: 2px solid #32b550;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #32b550;
+    transition: all 500ms;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+    .custom-confirm-alert:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        outline: 2px solid #58d073;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-confirm-alert::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #32b550;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-confirm-alert:hover::before {
+        width: 250%;
+    }
+
+.custom-decline-alert {
+    background-color: #ffffff;
+    padding: .5em 1em;
+    border: 2px solid #ec474f;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #ec474f;
+    transition: all 500ms;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+    .custom-decline-alert:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        outline: 2px solid #f57779;
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-decline-alert::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #ec474f;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-decline-alert:hover::before {
+        width: 250%;
+    }
+
+.custom-cancel-alert {
+    background-color: #ffffff !important;
+    padding: .5em 1em;
+    border: 2px solid #6c757d;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #6c757d;
+    transition: all 500ms;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+    .custom-cancel-alert:hover {
+        color: #ffffff;
+        transform: scale(1.1);
+        box-shadow: 4px 5px 17px -4px #268391;
+    }
+
+    .custom-cancel-alert::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: 0;
+        width: 0;
+        height: 100%;
+        background-color: #6c757d;
+        transform: skewX(45deg);
+        z-index: -1;
+        transition: width 500ms;
+    }
+
+    .custom-cancel-alert:hover::before {
+        width: 250%;
+    }
+
+
+.swal2-icon.swal2-success {
+    color: #28a745 !important;
+    border-color: #28a745 !important;
+}
+
+.swal2-icon.swal2-warning {
+    color: #ffc107 !important;
+    border-color: #ffc107 !important;
+}
+
+.swal2-icon.swal2-error {
+    color: #dc3545 !important;
+    border-color: #dc3545 !important;
+}
+
+.swal2-icon.swal2-info {
+    color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
+}
+
+/* Tamaño y estilo para el título */
+.swal2-title {
+    font-size: 20px; /* Tamaño del título */
+    font-weight: 600;
+}
+
+/* Tamaño y estilo para el texto */
+.swal2-html-container {
+    font-size: 16px; /* Tamaño del texto */
+}
+
+
+div.dt-container .dt-search input {
+    border: none !important;
+    border-radius: 4px !important;
+    padding: .15rem .5rem !important;
+    background-color: #f5f5f5 !important;
+    color: #242424 !important;
+    max-width: 190px !important;
+    min-height: 40px !important;
+    outline: none !important;
+    line-height: 1.15 !important;
+    box-shadow: 0px 10px 20px -18px !important;
+}
+
+
+    div.dt-container .dt-search input:focus {
+        border-bottom: 2px solid #069bf1 !important;
+        border-radius: 4px 4px 2px 2px !important;
+    }
+
+    div.dt-container .dt-search input:hover {
+        outline: 1px solid #069bf1 !important;
+    }
+
+div.dt-container .dt-search label {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+table.dataTable thead > tr > th.dt-orderable-asc span.dt-column-order:before {
+    color: #069bf1;
+}
+table.dataTable thead > tr > th.dt-orderable-asc span.dt-column-order:after {
+    color: #069bf1;
+}
+
+div.dt-container .dt-info {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 14px;
+}
+.form-control{
+    font-size:14px;
+}
+
+div.dt-container .dt-search {
+    display: none;
+}
+
+
+/* From Uiverse.io by alexruix */
+.card {
+    width: 400px;
+    height: 254px;
+    border-radius: 20px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    transition: 0.5s ease-out;
+    overflow: visible;
+}
+
+.card-details {
+    color: black;
+    height: 100%;
+    gap: .5em;
+    display: grid;
+    place-content: center;
+}
+
+.card-button {
+    transform: translate(-50%, 125%);
+    width: 60%;
+    border-radius: 1rem;
+    border: none;
+    background-color: #008bf8;
+    color: #fff;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    opacity: 0;
+    transition: 0.3s ease-out;
+    text-decoration:none;
+}
+    .card-button:hover {
+        color: #ffffff !important;
+    }
+
+.text-body {
+    color: rgb(134, 134, 134);
+}
+
+/*Text*/
+.text-title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/*Hover*/
+.card:hover {
+    border-color: #008bf8;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+    .card:hover .card-button {
+        transform: translate(-50%, 50%);
+        opacity: 1;
+    }
+
+

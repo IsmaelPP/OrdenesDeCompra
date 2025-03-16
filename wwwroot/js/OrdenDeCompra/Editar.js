@@ -21,11 +21,11 @@ $(document).ready(function () {
         unmaskAsNumber: true
     }).mask("#MontoTotal");
 
-    $('#crearOrdenForm').on('submit', function (event) {
+    $('#editarOrdenForm').on('submit', function (event) {
         event.preventDefault();  // Evita que el formulario se envíe normalmente
 
         // Validación de todos los campos requeridos
-        if (!$('#crearOrdenForm').valid()) {
+        if (!$('#editarOrdenForm').valid()) {
             return; // Si no es válido, no se hace la solicitud AJAX
         }
 
@@ -37,9 +37,9 @@ $(document).ready(function () {
             // Aquí iría tu lógica para guardar los datos (AJAX, etc.)
             // Por ejemplo, una llamada AJAX
             $.ajax({
-                url: '/OrdenDeCompra/Crear',
+                url: '/OrdenDeCompra/Editar',
                 method: 'POST',
-                data: $('#crearOrdenForm').serialize(),  // Serializa los datos del formulario
+                data: $('#editarOrdenForm').serialize(),  // Serializa los datos del formulario
                 success: function (response) {
                     $('#loader').hide();
                     Swal.fire({

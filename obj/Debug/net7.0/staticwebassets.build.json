@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "r/pFpQtTiCS2iurvP+XLSSkoQCEZAin4RIGi595dqlA=",
+  "Hash": "X9rKbq4Nc2CwyhIcuPPrvSuscL+4LfFKJw4n74eUg1A=",
   "Source": "OrdenesDeCompras",
   "BasePath": "_content/OrdenesDeCompras",
   "Mode": "Default",
@@ -49,6 +49,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\OrdenesDeCompras.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\css\\OrdenDeCompra\\Crear.css",
+      "SourceId": "OrdenesDeCompras",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\",
+      "BasePath": "_content/OrdenesDeCompras",
+      "RelativePath": "css/OrdenDeCompra/Crear.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\OrdenDeCompra\\Crear.css"
+    },
+    {
+      "Identity": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\css\\OrdenDeCompra\\Editar.css",
+      "SourceId": "OrdenesDeCompras",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\",
+      "BasePath": "_content/OrdenesDeCompras",
+      "RelativePath": "css/OrdenDeCompra/Editar.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\OrdenDeCompra\\Editar.css"
     },
     {
       "Identity": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\css\\OrdenDeCompra\\Index.css",
@@ -117,6 +151,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\js\\OrdenDeCompra\\Crear.js"
+    },
+    {
+      "Identity": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\js\\OrdenDeCompra\\Editar.js",
+      "SourceId": "OrdenesDeCompras",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\",
+      "BasePath": "_content/OrdenesDeCompras",
+      "RelativePath": "js/OrdenDeCompra/Editar.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\OrdenDeCompra\\Editar.js"
     },
     {
       "Identity": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\js\\OrdenDeCompra\\Index.js",

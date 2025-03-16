@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\OrdenesDeCompras.bundle.scp.css"
     },
     {
+      "Id": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\css\\OrdenDeCompra\\Crear.css",
+      "PackagePath": "staticwebassets\\css\\OrdenDeCompra\\Crear.css"
+    },
+    {
+      "Id": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\css\\OrdenDeCompra\\Editar.css",
+      "PackagePath": "staticwebassets\\css\\OrdenDeCompra\\Editar.css"
+    },
+    {
       "Id": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\css\\OrdenDeCompra\\Index.css",
       "PackagePath": "staticwebassets\\css\\OrdenDeCompra\\Index.css"
     },
@@ -19,6 +27,10 @@
     {
       "Id": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\js\\OrdenDeCompra\\Crear.js",
       "PackagePath": "staticwebassets\\js\\OrdenDeCompra\\Crear.js"
+    },
+    {
+      "Id": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\js\\OrdenDeCompra\\Editar.js",
+      "PackagePath": "staticwebassets\\js\\OrdenDeCompra\\Editar.js"
     },
     {
       "Id": "D:\\mamadas del chiflo\\ExamenTeorico\\OrdenesDeCompras\\wwwroot\\js\\OrdenDeCompra\\Index.js",

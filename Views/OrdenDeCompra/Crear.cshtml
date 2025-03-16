@@ -1,37 +1,74 @@
 ﻿@model OrdenDeCompra
 @{
-    ViewData["Title"] = "Crear Orden de Compra";
+	ViewData["Title"] = "Crear";
 
 }
+@section Styles{
+	<link href="~/css/OrdenDeCompra/Crear.css" rel="stylesheet" />
+}
+<div class="d-flex justify-content-between align-items-center mb-4">
+	<h1>Crear orden de compra</h1>
+	<a class="custom-button-delete d-flex align-items-center" asp-area="" asp-controller="OrdenDeCompra" asp-action="Index">
+		<i class="bi bi-arrow-left me-1 fs-5"></i> Regresar
+	</a>
+</div>
+<form asp-action="Crear" method="post" id="crearOrdenForm" class="needs-validation" novalidate>
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="row">
+		<div class="col-md-8">
+			<label class="sr-only" asp-for="NumeroDeOrden">Número de Orden</label>
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<div class="input-group-text"><i class="bi bi-file-earmark"></i></div>
+				</div>
+				<input asp-for="NumeroDeOrden" type="text" id="NumeroDeOrden" name="NumeroDeOrden" class="form-control" />
+			</div>
+			<span asp-validation-for="NumeroDeOrden" class="text-danger"></span>
+		</div>
+		<div class="col-md-4">
+			<label class="sr-only" asp-for="Fecha">Fecha</label>
+			<div class="input-group mb-2">
+				<div class="input-group-prepend">
+					<div class="input-group-text"><i class="bi bi-calendar"></i></div>
+				</div>
+				<input asp-for="Fecha" type="date" id="Fecha" name="Fecha" class="form-control" />
+			</div>
+			<span asp-validation-for="Fecha" class="text-danger"></span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="sr-only" asp-for="Proveedor">Proveedor</label>
+		<div class="input-group mb-2">
+			<div class="input-group-prepend">
+				<div class="input-group-text"><i class="bi bi-person-bounding-box"></i></div>
+			</div>
+			<input asp-for="Proveedor" type="text" id="Proveedor" name="Proveedor" class="form-control" />
+		</div>
+		<span asp-validation-for="Proveedor" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label class="sr-only" asp-for="MontoTotal">Monto Total</label>
+		<div class="input-group mb-2">
+			<div class="input-group-prepend">
+				<div class="input-group-text"><i class="bi bi-currency-dollar"></i></div>
+			</div>
+			<input asp-for="MontoTotal" type="text" id="MontoTotal" name="MontoTotal" class="form-control" />
+		</div>
+		<span asp-validation-for="MontoTotal" class="text-danger"></span>
+	</div>
+	<button type="submit" class="custom-button-save d-flex align-items-center mt-3">
+		<i class="bi bi-floppy me-1 fs-5"></i>Guardar
+	</button>
 
-<form asp-action="CrearOrdenDeCompra" method="post" id="crearOrdenForm">
-    <div class="form-group">
-        <label for="Id">Id de Orden</label>
-        <input type="number" id="Id" name="Id" value="@((Model != null) ? Model.Id : "")" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="NumeroDeOrden">Número de Orden</label>
-        <input type="text" id="NumeroDeOrden" name="NumeroDeOrden" value="@((Model != null) ? Model.NumeroDeOrden : "")" class="form-control" required />
-        @if (ViewData.ModelState.ContainsKey("NumeroDeOrden") && ViewData.ModelState["NumeroDeOrden"].Errors.Any())
-        {
-            <span class="text-danger">@ViewData.ModelState["NumeroDeOrden"].Errors.First().ErrorMessage</span>
-        }
-    </div>
-    <div class="form-group">
-        <label for="Fecha">Fecha</label>
-        <input type="date" id="Fecha" name="Fecha" value="@((Model !=null) ? Model.Fecha.ToString("yyyy-MM-dd") : DateTime.Now.ToString("yyyy-MM-dd"))" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="Proveedor">Proveedor</label>
-        <input type="text" id="Proveedor" name="Proveedor" value="@((Model !=null) ? Model.Proveedor : "")" class="form-control" required />
-    </div>
-    <div class="form-group">
-        <label for="MontoTotal">Monto Total</label>
-        <input type="number" id="MontoTotal" name="MontoTotal" value="@((Model != null) ? Model.MontoTotal : "")" class="form-control" step="0.01" required />
-    </div>
-
-    <button type="submit" class="btn btn-primary">Guardar</button>
 </form>
+<div id="loader" class="loader-container">
+	<div class="loader">
+		<div class="spinner"></div>
+	</div>
+</div>
 @section Scripts{
-	<script src="~/js/ordendecompra/crear.js"></script>
+	<script src="~/js/OrdenDeCompra/Crear.js"></script>
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }
